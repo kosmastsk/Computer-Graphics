@@ -1,0 +1,1 @@
+function Y = triPaintGouraud(X, V, C)
