@@ -1,31 +1,42 @@
 %% demoFlat.m
 % This script demonstrates the triangle filling algorithm by using the Flat
 % method
-% Estimated running time:
+% Estimated running time: around 90-100 seconds
 
 %% CLEAR
 clear all;
 close all;
 
-%% LOAD INPUT FILES
+%% BEGIN
+tic
+fprintf('\n *** begin %s ***\n\n',mfilename);
+
+%% READ DATA
+fprintf('Reading data\n')
+
 try 
     load('cat.mat');
+    fprintf('Reading data completed\n\n');
 catch 
-    disp('Error loading cat.mat file.');
+    fprintf('Error loading cat.mat file\n\n');
 end
 % C, D, F, V variables now exist in the workspace
 
-% Set canva size
-M = 1150;
-N = 1300;
-
 %% FILLING
+fprintf('*objectPainter is now running.......*\n\n');
+image = objectPainter(V, C, F, D, 'Flat');
 
 %% RESULT
+imshow(image);
 
 %% END
+toc
+fprintf('\n *** end %s ***\n\n',mfilename);
 
-%% AUTHOR
-
-%   Kosmas Tsiakas [kosmastsk@gmail.com]
+%% ------------------------------------------------------------
+%
+% AUTHOR
+% 
+%   Kosmas Tsiakas          kosmastsk@gmail.com
+% 
 %   March 2018
