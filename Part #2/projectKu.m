@@ -6,8 +6,8 @@ function [P, D] = projectKu(w, cv, ck, cu, p)
 %   VARIABLES
 %   w  : distance between the screen and the centre
 %   cv : coordinates of the shifting vector vc
-%   cx : coordinate of camera's target K
-%   cy : coordinate of the up vector u
+%   ck : coordinate of camera's target K
+%   cu : coordinate of the up vector u
 %   p  : 3xn column with coordinates of n points
 %   P  : 2xn array for saving the projection
 %   D  : 1xn array for saving the depth of each point
@@ -25,15 +25,7 @@ yc = t ./ norm(t);
 % the last coordinate is the cross product of the two coordinates
 xc = cross(yc, zc);
 
-% change coordinates of the point
-dp = systemtrans(p, xc, yc, xc, cv);
-
-% Calculate the x and y coordinates of the projection
-P(1,:) = dp(1,:) ./ dp(3,:);
-P(2,:) = dp(2,:) ./ dp(3,:);
-
-% The depth is estimated with the z coordinate
-D(1,:) = dp(3,:);
+% Since we have the coordinates, we just need to call the previous method
+[P, D] = projectCamera(w, cv, xc, yc, p);
 
 end
-

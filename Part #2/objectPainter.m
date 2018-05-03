@@ -2,7 +2,7 @@ function I = objectPainter(V, C, F, D, painterType)
 %OBJECTPAINTER Calling the proper function, depending on the painterType,
 %to color the pixels inside the triangles
 %   The order of painting occurs from the depth of each triangle
-%   Initial format: RGB(1,1,1) canva, size:MxN (1150x1300)
+%   Initial format: RGB(1,1,1) canva, size:MxN
 
 % VARIABLES
 % I: Coloured image MxNx3 which contains K coloured triangles
@@ -14,8 +14,9 @@ function I = objectPainter(V, C, F, D, painterType)
 
 %% INITIALIZATION
 % Set the width and height of the canva
-M = 1150;
+M = 1200;
 N = 1300;
+translate = [600, 650];
 
 % Initialize the white canva
 I = ones(M, N, 3);
@@ -33,23 +34,14 @@ end
 F = F(idx, :);
 
 %% PAINTER TYPE
-for t = 1 : length(triangleD)
-    if strcmp(painterType, 'Flat')
-        I = triPaintFlat(I, V(F(t, :), :), C(F(t, :), :));
-    elseif strcmp(painterType, 'Gouraud')
-        I = triPaintGouraud(I, V(F(t, :), :), C(F(t, :), :));
+for t = 1 : length(F)
+    if strcmp(painterType, 'Gouraud') 
+        coords = pointtrans(V(F(t, :), :), eye(3)*10^4, translate);
+        I = triPaintGouraud(I, floor(coords), C(F(t, :), :));
     else
         fprintf('*Painter type not found*\n\n');
     end
     % imshow(I)
 end
-
-%% TESTING with patch
-% tic
-% for k = 1 : 3954
-%     patch( V(F(k,:),1) , V(F(k,:),2), mean( C(F(k,:),:) ) )
-% end
-% toc
-% Elapsed time is 1.626998 seconds.
 
 end

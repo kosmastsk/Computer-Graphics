@@ -13,16 +13,20 @@ function [P, D] = projectCamera(w, cv, cx, cy, p)
 %   D  : 1xn array for saving the depth of each point
 
 %% Calculations
+% Calculate cz as the cross product of cx and cy
+cz = cross(cx, cy);
 
 % Change the coordinate system of p from WCS to CCS 
-dp = systemtrans(p, cx, cy, w, cv);
+dp = systemtrans(p, cx, cy, cz, cv);
 
-% Calculate the x and y coordinates of the projection
-P(1,:) = dp(1,:) ./ dp(3,:);
-P(2,:) = dp(2,:) ./ dp(3,:);
-
-% The depth is estimated with the z coordinate
-D(1,:) = dp(3,:);
-
+% Calculate the projection of each point
+for i = 1 : size(p,1)
+    if dp(3,i) > 0 % Check what is visible
+        P(1,i) = - w * dp(1,i)/dp(3,i); % x points
+        P(2,i) = - w * dp(2,i)/dp(3,i); % y points
+        % The depth is equal to the z coordinate
+        D(1,i) =  - w * dp(3,i);
+    end
 end
 
+end

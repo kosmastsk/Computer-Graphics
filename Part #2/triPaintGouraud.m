@@ -12,17 +12,6 @@ function Y = triPaintGouraud(X, V, C)
 % values, as well as the pre-existing triangles of X
 % Canva size: MxN
 
-%% SAMPLE DATA for testing
-% Y = ones(1150, 1300, 3);
-
-% V = [1083, 400;
-%     1080, 363;
-%     1077, 379];
-
-% C = [0.5686,0.4471,0.3333;
-%     0.6667,0.5412,0.3647;
-%     0.7098,0.5804,0.4745];
-
 %% INITIALIZATION
 % Create a bucket struct, where to save the information about each edge of
 % the triangle
@@ -111,7 +100,6 @@ ymax = max([bucket.yMax]);
 
 %% SCANNING
 for y = ymin : 1 : ymax
- 
     % Remove edges from the active list if ymax <= current scanline
     if (~ isempty(activeList))
         for i = 1 : length(activeList) %check every edge in the active list
@@ -167,7 +155,7 @@ for y = ymin : 1 : ymax
     currentDistance2 = pdist([activeList(2).xOfymin, activeList(2).yMin; b, y], 'euclidean');
     CA = activeList(1).startingColor + (currentDistance1 * activeList(1).normColor);
     CB = activeList(2).startingColor + (currentDistance2 * activeList(2).normColor);
-    
+     
     % Coloring the pixels
     for x = a : 1 : b
         Y(y, x, :) = findColor(x, a, b, CA, CB);
@@ -189,5 +177,5 @@ for y = ymin : 1 : ymax
         end
     end
 end
-%% END OF FUNCTION
+
 end

@@ -11,7 +11,6 @@ function cq = pointtrans(cp, R, ct)
 
 %% Apply the transformation
 
-cq = (R * cp) + repmat(ct, size(R,2), 1);
+cq = (R * cp) + repmat(ct, size(R,2), 1); % Use the repmat function to make it work for n vectors
 
 end
-

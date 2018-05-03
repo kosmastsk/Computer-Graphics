@@ -21,7 +21,7 @@ if size(V, 1) == 4
     V = V(1:3, :);
 end
 
-close all;
+% close all;
 h = patch('Faces', F, 'Vertices', V', 'FaceVertexCdata',C,'facecolor','interp','edgecolor','none'); 
 axis equal;
 

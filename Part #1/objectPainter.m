@@ -37,6 +37,7 @@ for t = 1 : length(triangleD)
     if strcmp(painterType, 'Flat')
         I = triPaintFlat(I, V(F(t, :), :), C(F(t, :), :));
     elseif strcmp(painterType, 'Gouraud')
+        V(F(t, :), :)
         I = triPaintGouraud(I, V(F(t, :), :), C(F(t, :), :));
     else
         fprintf('*Painter type not found*\n\n');

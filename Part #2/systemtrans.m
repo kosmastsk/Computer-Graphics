@@ -13,17 +13,14 @@ function dp = systemtrans(cp, b1, b2, b3, co)
 %   dp : 3xn new coordinates of the n points
 
 %% Apply the transformation
-% Calculate the unit vectors
-b = [b1;b2;b3];
-unit_b = b ./ norm(b);
-unit_bo = cp ./ norm(cp);
 
 % Calculate the transform matrix
-
+% b3 = [b3, 0 ,0]';
+L = [b1,b2,b3];
+L = L ./ norm(L);
 
 % Calculate the new coordinates 
-dp = inv(L) * (cp - co);
-
+dp = L \ (cp - repmat(co', size(cp,1),1))'; % faster than using inv(b) * ...
 
 end
 
