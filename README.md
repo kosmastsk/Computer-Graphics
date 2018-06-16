@@ -12,3 +12,8 @@ Given some points in the .mat file, the following steps are implemented and demo
 - Rotation
 - Translation
 - Calculation of the perspective projection for two different cameras
+
+## Part #3 - Light Calculation and Rendering
+- Calculate the ambient, diffuse and specular light
+- Use the sum of them to paint an image using either Gouraud or Phong shading
+- Calculate the normal vectors and the projection of the 3D object to 2D

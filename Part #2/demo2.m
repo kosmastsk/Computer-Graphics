@@ -78,7 +78,7 @@ I = objectPainter(P, C, F, D, 'Gouraud');
 % Plot I
 figure;
 imshow(I);
-title('Step 4 - Project to camera');
+title('Step 4 - Project to camera')
 
 %% Step 5 - Project to camera using camera vectors
 fprintf('\n *** Step 5 - Project to camera using camera vectors ***\n\n');
