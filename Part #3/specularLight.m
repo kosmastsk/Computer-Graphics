@@ -17,18 +17,18 @@ function I = specularLight(P, N, C, ks, ncoeff, S, I0)
 n = size(S,2); % number of light sources
 I = zeros(3,1);
 
-V = P - C; % Calculate the vector between point P and viewer C
+V = C - P; % Calculate the vector between point P and viewer C
+V = V / norm(V);
 
 for i = 1 : n
-    
     L = S(:,i) - P; % Calculate the vector between point P and the i-th source S
+    L = L / norm(L); % make it unit vector
 
     RV = dot(2*N*dot(N,L) - L, V); % Calculate the R*V product
-    
-    Il = I0(:,i) .* ks(1,:) * RV^ncoeff;
+
+    Il = I0(:,i) .* ks .* RV^ncoeff;
 
     I = I + Il; % add to the total
 end
 
 end
-

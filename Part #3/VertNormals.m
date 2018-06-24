@@ -9,26 +9,28 @@ function Normals = VertNormals(R, F)
 % Normals : Coordinates of the normal vectors
 
 r = size(R, 2); % number of vertices of the object
-T = size(F, 2); % number of triangles that consist the object
+T = size(F, 1); % number of triangles that consist the object
 
 % Create an array to save the normal vector of each triangle
 trNV = zeros(3,T);
 for i = 1 : T 
     % The three vertices of the triangle
-    vert1 = R(:, F(1,i));
-    vert2 = R(:, F(2,i));
-    vert3 = R(:, F(3,i));
-    
-    trNV = cross((vert2 - vert1), (vert3 - vert1)); % Calculate the normal vector
-
+    vert1 = R(:, F(i,1));
+    vert2 = R(:, F(i,2));
+    vert3 = R(:, F(i,3));
+    V = vert1 - vert2;
+    W = vert1 - vert3;
+        
+    N = cross(V, W); % Calculate the cross product which is the vector with the right direction
+    trNV(:,i) = N ./ norm(N); 
 end
 
 %Create an array to save the normal vector of each vertex
 Normals = zeros(3, r);
 for i = 1 : T % for each triangle
     for j = 1 : 3 % for each vertex of the triangle
-        Normals(:, F(j, i)) = Normals(:, F(j, i)) + trNV(:, i);
+        Normals(:, F(i, j)) = Normals(:, F(i, j)) + trNV(:, i);
     end
 end
-    
-end
+
+Normals = Normals ./ norm(Normals);

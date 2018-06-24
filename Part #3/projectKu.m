@@ -23,7 +23,7 @@ t = cu - dot(cu, zc) * zc;
 yc = t ./ norm(t);
 
 % the last coordinate is the cross product of the two coordinates
-xc = cross(yc, zc)
+xc = cross(yc, zc);
 
 % Since we have the coordinates, we just need to call the previous method
 [P, D] = projectCamera(w, cv, xc, yc, p);

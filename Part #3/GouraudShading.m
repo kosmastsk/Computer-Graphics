@@ -26,21 +26,20 @@ function Y = GouraudShading(p, Vn, Pc, C, S, ka, kd, ks, ncoeff, Ia, I0, X)
 Color = zeros(3,3);
 % For each vertex, calculate the ambient light
 for i = 1 : 3
-    Color(:,i) = Color(:,i) + ambientLight(ka(:, i), Ia);
+    Color(:,i) = Color(:,i) + ambientLight(ka(:, i)', Ia)';
 end
 
 % For each vertex calculate the diffuse light
 for i = 1 : 3
-    Color(:,i) = Color(:,i) + diffuseLight(Pc, Vn(:, i), kd(:,i), S, I0);
+    Color(:,i) = Color(:,i) + diffuseLight(Pc, Vn(:, i), kd(:,i), S, I0');
 end
 
 % For each vertex calculate the specular light
 for i = 1 : 3
-    Color(:,i) = Color(:,i) + specularLight(Pc, Vn(:, i), C,  ks(:,i), ncoeff, S, I0);
+    Color(:,i) = Color(:,i) + specularLight(Pc, Vn(:, i), C,  ks(:,i), ncoeff, S, I0');
 end
 
 %% Apply color
 Y = triPaintGouraud(X, p', Color);
 
 end
-

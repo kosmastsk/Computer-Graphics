@@ -14,19 +14,19 @@ function I = diffuseLight(P, N, kd, S, I0)
 
 n = size(S,2); % number of light sources
 I = zeros(3,1);
-
 % For each light source, calculate the I and add it to the total one
-
 for i = 1 : n
+
     % Calculate the distance between point P and the i-th light source S
     d = sqrt( sum( (S(:,i) - P).^2 ) );
 
     fatt = 1 / (d^2); % attenuation factor
-    
-    L = S(:,i) - P; % Calculate the vector between point P and the i-th source S
 
-    Il = I0(:,i) * fatt .* kd .* dot(N, L); % Light for i-th source
+    L = S(:,i) - P; % Calculate the vector between point P and the i-th source S
+    L = L / norm(L);
     
+    Il = I0(i,:) .*  fatt .* kd .* dot(N, L); % Light for i-th source
+
     I = I + Il; % add to the total
 end
 
